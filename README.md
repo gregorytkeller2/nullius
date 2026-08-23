@@ -82,12 +82,46 @@ overfitted strategies get believed.
 | **Block bootstrap** | Resamples 21-day blocks so volatility clustering survives. If the 5th percentile Sharpe is below zero, the sample cannot rule out nothing. |
 | **Decile monotonicity** | Checks the response is ordered across the whole cross-section, not just the tails. |
 | **Signal IC t-stat** | Rank correlation across every name and period — far more powerful than the Sharpe of one portfolio, which throws most of the information away. |
+| **Walk-forward** | Same parameters on train and test — nothing is re-optimised, because doing so would mean the harness performs the tuning you are trying to detect. Compares the *edge* over the benchmark, not raw return. Five verdicts; the overall one is the **worst** window, not the average. |
+
+## Point-in-time universes
+
+Survivorship bias is the one defect no out-of-sample test can find — split a
+biased universe in half and you get two biased halves. `nullius` ships
+historical S&P 500 membership, 1996 to present: 1,206 tickers, of which **703
+are no longer in the index**.
+
+```python
+from nullius import SP500
+
+u = SP500()
+mask = u.mask(prices.index, prices.columns)     # point-in-time eligibility
+have, want = u.coverage(prices.columns)         # and report the gap honestly
+Study(..., mask=mask)
+```
+
+The mask is ANDed with everything else, never ORed, so it can only ever
+restrict the universe. Free price vendors drop many delisted tickers; the
+missing names fall on the short leg, where the disappearances would have been,
+so the residual bias understates short-side profit rather than flattering it.
+`coverage()` exists so you report that rather than assume it away.
+
+## Command line
+
+```bash
+nullius init                # scaffold criteria.yaml and study.py
+nullius run study.py        # run it, print the verdict, write the HTML report
+nullius attacks             # list what will be thrown at your signal
+```
+
+`nullius run` exits 0 if the study survived and 1 if it was killed, so it drops
+straight into CI — a strategy that stops surviving becomes a failing build.
 
 ## Install and use
 
 ```bash
 pip install pandas numpy        # that is the whole dependency list
-python -m pytest tests -q       # 20 tests, no network needed
+python -m pytest tests -q       # 49 tests, no network needed
 python examples/momentum_demo.py
 ```
 

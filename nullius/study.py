@@ -9,6 +9,7 @@ import pandas as pd
 
 from . import attacks as A
 from . import engine as E
+from . import walkforward as W
 from .prereg import Preregistration
 from .report import Report
 
@@ -26,7 +27,8 @@ class Study:
                  prereg: str | Path, spec: E.BacktestSpec | None = None,
                  mask: pd.DataFrame | None = None,
                  param_grid: dict | None = None,
-                 horizon: int = 21, lock_dir: str | Path | None = None):
+                 horizon: int = 21, lock_dir: str | Path | None = None,
+                 walk_forward: dict | bool | None = True):
         self.name = name
         self.prices = prices.sort_index()
         self.signal = signal
@@ -34,6 +36,9 @@ class Study:
         self.mask = mask
         self.param_grid = param_grid
         self.horizon = horizon
+        if walk_forward is True:
+            walk_forward = {"mode": "single"}
+        self.walk_forward = walk_forward or None
         self.prereg = Preregistration.load(prereg, lock_dir)
         self.score = signal(self.prices)
         if self.score.shape != self.prices.shape:
@@ -76,6 +81,10 @@ class Study:
         step("breadth curve",
              lambda: A.breadth_curve(self.prices, self.signal, self.spec,
                                      mask=self.mask))
+        if self.walk_forward:
+            step(f"walk-forward ({self.walk_forward.get('mode', 'single')})",
+                 lambda: W.walk_forward(self.prices, self.score, self.spec,
+                                        self.mask, **self.walk_forward))
         if self.param_grid:
             step("parameter plateau",
                  lambda: A.parameter_plateau(self.prices, self.signal, self.spec,

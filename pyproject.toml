@@ -7,6 +7,12 @@ requires-python = ">=3.10"
 dependencies = ["pandas>=2.0", "numpy>=1.24"]
 license = {text = "MIT"}
 
+[project.scripts]
+nullius = "nullius.cli:main"
+
+[tool.setuptools.package-data]
+nullius = ["data/*.csv.gz"]
+
 [project.optional-dependencies]
 yaml = ["pyyaml>=6.0"]
 dev = ["pytest>=7.0"]

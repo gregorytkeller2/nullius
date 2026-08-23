@@ -21,6 +21,9 @@ stamps every subsequent report AMENDED and prints the diff.
 from .prereg import Preregistration, PreregLock
 from .study import Study
 from .report import Report, Finding
+from .universe import PointInTimeUniverse, SP500
+from .walkforward import walk_forward, make_windows
 
 __version__ = "0.1.0"
-__all__ = ["Study", "Preregistration", "PreregLock", "Report", "Finding"]
+__all__ = ["Study", "Preregistration", "PreregLock", "Report", "Finding",
+           "PointInTimeUniverse", "SP500", "walk_forward", "make_windows"]
