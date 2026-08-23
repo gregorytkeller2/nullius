@@ -1,0 +1,17 @@
+# Written before the run. Hashed on load; edits are recorded, not hidden.
+hypothesis: >
+  Stocks that outperformed their peers over 3-12 months keep outperforming for
+  several months more, strongly enough to survive costs on a monthly rebalance.
+
+kill_criteria:
+  min_sharpe: 0.40
+  min_breakeven_bps: 20
+  max_permutation_p: 0.05
+  min_ic_tstat: 2.0
+  require_monotonic_deciles: true
+  max_turnover: 30
+  min_years: 5
+
+notes: >
+  Thresholds are deliberately modest. The question is not whether this is a good
+  strategy, it is whether the effect is there at all.

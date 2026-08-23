@@ -1,0 +1,16 @@
+[project]
+name = "nullius"
+version = "0.1.0"
+description = "A falsification harness for trading strategies — take nobody's word for it, including your own."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["pandas>=2.0", "numpy>=1.24"]
+license = {text = "MIT"}
+
+[project.optional-dependencies]
+yaml = ["pyyaml>=6.0"]
+dev = ["pytest>=7.0"]
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
