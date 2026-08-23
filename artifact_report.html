@@ -1,0 +1,89 @@
+<title>Falsification Report</title>
+<style>
+:root{color-scheme:light;--bg:#eceaf1;--card:#fff;--card2:#f5f4f9;--ink:#1a1922;
+--ink2:#434150;--muted:#6b6879;--rule:#d5d3de;--rule2:#e7e5ee;--accent:#1c6b67;
+--pass:#1c6b67;--pass-bg:#dbeceb;--fail:#8c2f39;--fail-bg:#f2e2e4;
+--warn:#9c5f16;--warn-bg:#f6ead9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;
+--bg:#121118;--card:#1a1922;--card2:#211f2b;--ink:#ecebf2;--ink2:#c3c0d0;
+--muted:#918ea2;--rule:#2f2d3a;--rule2:#242230;--accent:#5cb5af;
+--pass:#5cb5af;--pass-bg:#12302e;--fail:#d8767f;--fail-bg:#331a1e;
+--warn:#d9a052;--warn-bg:#302315}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#121118;--card:#1a1922;--card2:#211f2b;
+--ink:#ecebf2;--ink2:#c3c0d0;--muted:#918ea2;--rule:#2f2d3a;--rule2:#242230;
+--accent:#5cb5af;--pass:#5cb5af;--pass-bg:#12302e;--fail:#d8767f;--fail-bg:#331a1e;
+--warn:#d9a052;--warn-bg:#302315}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 ui-sans-serif,
+system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.w{max-width:860px;margin:0 auto;padding:52px 24px 90px}
+.eyebrow{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+h1{font-size:2rem;line-height:1.15;letter-spacing:-.02em;margin:0 0 10px;font-weight:600}
+.hyp{color:var(--ink2);max-width:64ch;margin:0 0 22px}
+.seal{display:inline-flex;align-items:center;gap:9px;font-family:ui-monospace,monospace;
+font-size:11.5px;padding:6px 12px;border-radius:20px;background:var(--pass-bg);
+color:var(--pass);font-weight:600;letter-spacing:.04em}
+.seal.amended{background:var(--warn-bg);color:var(--warn)}
+.diff{margin:14px 0 0;padding:13px 16px;border-left:3px solid var(--warn);
+background:var(--warn-bg);border-radius:0 6px 6px 0;font-family:ui-monospace,monospace;
+font-size:12.5px;color:var(--ink2)}
+.verdict{margin:30px 0;padding:26px 28px;border-radius:11px;background:var(--card);
+border:1px solid var(--rule);box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 26px -16px rgba(0,0,0,.3)}
+.vbig{font-size:2.4rem;font-weight:700;letter-spacing:-.03em;line-height:1.05;margin:0}
+.vbig.k{color:var(--fail)}.vbig.s{color:var(--pass)}
+.vsub{color:var(--muted);font-size:14px;margin:7px 0 0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));
+gap:2px;margin:22px 0 0;border-top:1px solid var(--rule2);padding-top:18px}
+.st b{display:block;font-family:ui-monospace,monospace;font-size:1.25rem;font-weight:600;
+letter-spacing:-.02em}
+.st span{display:block;font-family:ui-monospace,monospace;font-size:9.5px;
+letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+h2{font-size:1.12rem;margin:38px 0 14px;font-weight:600}
+.f{background:var(--card);border:1px solid var(--rule);border-radius:9px;
+padding:16px 19px;margin-bottom:10px}
+.fh{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap}
+.badge{font-family:ui-monospace,monospace;font-size:10px;font-weight:700;letter-spacing:.1em;
+padding:3px 9px;border-radius:5px}
+.badge.p{background:var(--pass-bg);color:var(--pass)}
+.badge.f{background:var(--fail-bg);color:var(--fail)}
+.fn{font-weight:600;font-size:15px}
+.fd{font-family:ui-monospace,monospace;font-size:12.5px;color:var(--ink2);
+margin:9px 0 0;word-break:break-word}
+.note{font-size:13.5px;color:var(--muted);margin:9px 0 0;padding-left:13px;
+border-left:2px solid var(--rule)}
+.warn{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:12px 16px;
+font-size:14px;margin-bottom:10px}
+table{border-collapse:collapse;width:100%;font-family:ui-monospace,monospace;
+font-size:12px;margin-top:11px}
+th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--rule2)}
+th:first-child,td:first-child{text-align:left}
+thead th{color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+details{margin-top:9px}summary{cursor:pointer;font-size:12.5px;color:var(--accent)}
+.tw{overflow-x:auto}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--rule);
+font-size:12.5px;color:var(--muted)}
+@media(max-width:640px){.w{padding:32px 16px 60px}.vbig{font-size:1.8rem}}
+</style>
+
+<div class="w">
+  <p class="eyebrow">nullius · falsification report</p>
+  <h1>Cross-sectional momentum — NASDAQ 2018-2023</h1>
+  <p class="hyp">Stocks that outperformed their peers over 3-12 months keep outperforming for several months more, strongly enough to survive costs on a monthly rebalance.
+</p>
+  <span class="seal">
+    🔒 PRE-REGISTRATION SEALED
+    &nbsp;345b1d1c90e28960</span>
+  
+  <div class="verdict">
+    <p class="vbig k">KILLED</p>
+    <p class="vsub">5 of 11 attacks survived</p>
+    <div class="stats"><div class='st'><b>0.23</b><span>Sharpe</span></div><div class='st'><b>+2.5%</b><span>CAGR</span></div><div class='st'><b>-39.2%</b><span>MaxDD</span></div><div class='st'><b>18.7x</b><span>turnover</span></div><div class='st'><b>4.2</b><span>years</span></div></div>
+  </div>
+  <div class='warn'>sample is 4.2 years, below the 5 you pre-registered as adequate</div>
+  <h2>Attacks</h2>
+  <div class='f'><div class='fh'><span class='badge p'>PASS</span><span class='fn'>Look-ahead canary</span></div><p class='fd'>future-shifted Sharpe 6.21 vs honest 0.23</p></div><div class='f'><div class='fh'><span class='badge f'>FAIL</span><span class='fn'>Decile monotonicity</span></div><p class='fd'>rank corr +0.59, top-minus-bottom +0.48%/period</p><p class='note'>A signal that only works in the extreme tails is usually a few outliers wearing a factor&#x27;s clothes.</p><details><summary>detail (10 rows)</summary><div class='tw'><table><thead><tr><th></th><th>mean_fwd_return</th></tr></thead><tbody><tr><td>0</td><td>0.009</td></tr><tr><td>1</td><td>0.009</td></tr><tr><td>2</td><td>0.009</td></tr><tr><td>3</td><td>0.005</td></tr><tr><td>4</td><td>0.007</td></tr><tr><td>5</td><td>0.008</td></tr><tr><td>6</td><td>0.011</td></tr><tr><td>7</td><td>0.015</td></tr><tr><td>8</td><td>0.014</td></tr><tr><td>9</td><td>0.014</td></tr></tbody></table></div></details></div><div class='f'><div class='fh'><span class='badge p'>PASS</span><span class='fn'>Cost sensitivity</span></div><p class='fd'>break-even 21.3 bps/side at 18.7x turnover (gross +4.0%/yr)</p><details><summary>detail (8 rows)</summary><div class='tw'><table><thead><tr><th></th><th>bps</th><th>sharpe</th><th>cagr</th></tr></thead><tbody><tr><td>0</td><td>0.000</td><td>0.289</td><td>0.040</td></tr><tr><td>1</td><td>5.000</td><td>0.246</td><td>0.030</td></tr><tr><td>2</td><td>10.000</td><td>0.204</td><td>0.021</td></tr><tr><td>3</td><td>20.000</td><td>0.119</td><td>0.002</td></tr><tr><td>4</td><td>30.000</td><td>0.034</td><td>-0.017</td></tr><tr><td>5</td><td>50.000</td><td>-0.135</td><td>-0.053</td></tr><tr><td>6</td><td>75.000</td><td>-0.342</td><td>-0.097</td></tr><tr><td>7</td><td>100.000</td><td>-0.543</td><td>-0.139</td></tr></tbody></table></div></details></div><div class='f'><div class='fh'><span class='badge f'>FAIL</span><span class='fn'>Bootstrap</span></div><p class='fd'>Sharpe 5th/50th/95th = -0.52 / 0.25 / 1.04</p><p class='note'>If the 5th percentile is below zero, the sample cannot rule out no edge, however good the point estimate looks.</p></div><div class='f'><div class='fh'><span class='badge f'>FAIL</span><span class='fn'>Permutation null</span></div><p class='fd'>p = 0.225 (80 shuffles, zero-cost), real 0.29 vs null -0.00 ± 0.43</p><p class='note'>Costs are switched off so this measures forecasting power rather than the turnover advantage of a slow signal.</p></div><div class='f'><div class='fh'><span class='badge p'>PASS</span><span class='fn'>Breadth</span></div><p class='fd'>20n: +0.27 | 50n: +0.27 | 100n: +0.22 | 250n: +0.11 | 500n: +0.19</p><details><summary>detail (5 rows)</summary><div class='tw'><table><thead><tr><th></th><th>median_sharpe</th></tr></thead><tbody><tr><td>20</td><td>0.266</td></tr><tr><td>50</td><td>0.272</td></tr><tr><td>100</td><td>0.223</td></tr><tr><td>250</td><td>0.107</td></tr><tr><td>500</td><td>0.188</td></tr></tbody></table></div></details></div><div class='f'><div class='fh'><span class='badge f'>FAIL</span><span class='fn'>Walk-forward</span></div><p class='fd'>NO_TRAIN_EDGE across 1 window(s); median retention nan%; 0/1 with |t| ≥ 2 out of sample</p><p class='note'>No edge even in sample, so the test window tests nothing. Verdict is the worst window, not the average.</p><details><summary>detail (1 rows)</summary><div class='tw'><table><thead><tr><th></th><th>train</th><th>test</th><th>is_edge</th><th>oos_edge</th><th>retained</th><th>oos_t</th><th>verdict</th></tr></thead><tbody><tr><td>split-1</td><td>2019-03→2021-04</td><td>2021-04→2023-05</td><td>-0.109</td><td>0.180</td><td>nan</td><td>1.522</td><td>NO_TRAIN_EDGE</td></tr></tbody></table></div></details></div><div class='f'><div class='fh'><span class='badge p'>PASS</span><span class='fn'>Parameter plateau</span></div><p class='fd'>8 configs, 100% positive, median 0.27, 5th pct 0.22</p><details><summary>detail (8 rows)</summary><div class='tw'><table><thead><tr><th></th><th>lookback</th><th>skip</th><th>quantile</th><th>sharpe</th></tr></thead><tbody><tr><td>0</td><td>126.000</td><td>0.000</td><td>0.100</td><td>0.293</td></tr><tr><td>1</td><td>126.000</td><td>0.000</td><td>0.200</td><td>0.243</td></tr><tr><td>2</td><td>126.000</td><td>21.000</td><td>0.100</td><td>0.391</td></tr><tr><td>3</td><td>126.000</td><td>21.000</td><td>0.200</td><td>0.385</td></tr><tr><td>4</td><td>252.000</td><td>0.000</td><td>0.100</td><td>0.302</td></tr><tr><td>5</td><td>252.000</td><td>0.000</td><td>0.200</td><td>0.221</td></tr><tr><td>6</td><td>252.000</td><td>21.000</td><td>0.100</td><td>0.225</td></tr><tr><td>7</td><td>252.000</td><td>21.000</td><td>0.200</td><td>0.224</td></tr></tbody></table></div></details></div><div class='f'><div class='fh'><span class='badge f'>FAIL</span><span class='fn'>Minimum Sharpe</span></div><p class='fd'>0.23 vs pre-set 0.40</p></div><div class='f'><div class='fh'><span class='badge p'>PASS</span><span class='fn'>Turnover ceiling</span></div><p class='fd'>18.7x vs pre-set 30x</p></div><div class='f'><div class='fh'><span class='badge f'>FAIL</span><span class='fn'>Signal IC t-stat</span></div><p class='fd'>IC +0.0367, t = +1.82 vs pre-set 2.0</p><p class='note'>Rank correlation uses the whole cross-section, so it is a far more powerful test than the Sharpe of one portfolio.</p></div>
+  <footer>Generated 2026-08-23 02:15 UTC by nullius 0.1.0. Surviving every attack means the
+  result is not obviously an artefact — a much weaker claim than "this works",
+  and the strongest one available. Not investment advice.</footer>
+</div>

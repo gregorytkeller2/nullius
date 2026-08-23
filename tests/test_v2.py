@@ -237,3 +237,45 @@ def test_cli_run_rejects_a_bad_file(tmp_path, capsys):
     (tmp_path / "empty.py").write_text("x = 1\n")
     assert cli_main(["run", str(tmp_path / "empty.py")]) == 2
     assert "must define" in capsys.readouterr().out
+
+
+def test_no_scipy_dependency():
+    """The package claims two dependencies. Hold it to that.
+
+    pandas delegates `corr(method="spearman")` to scipy, so a single use of it
+    silently adds a third dependency — caught only on a machine without scipy
+    installed. Pearson on ranks gives the identical number.
+    """
+    import subprocess, textwrap
+    code = textwrap.dedent(f"""
+        import sys
+        sys.path.insert(0, {str(Path(__file__).resolve().parent.parent)!r})
+
+        class Blocker:
+            def find_module(self, name, path=None):
+                return self if name == "scipy" or name.startswith("scipy.") else None
+            def load_module(self, name):
+                raise ImportError("scipy is blocked for this test")
+        sys.meta_path.insert(0, Blocker())
+
+        import numpy as np, pandas as pd
+        from nullius import engine as E
+        from nullius import attacks as A
+
+        rng = np.random.default_rng(0)
+        idx = pd.bdate_range("2018-01-01", periods=700)
+        px = pd.DataFrame(50 * np.exp(np.cumsum(
+            rng.normal(0.0004, 0.012, (700, 60)), axis=0)),
+            index=idx, columns=[f"T{{i}}" for i in range(60)])
+        past = px.shift(21)
+        raw = past / past.shift(252) - 1.0
+        sc = raw.sub(raw.mean(axis=1), axis=0).div(raw.std(axis=1), axis=0)
+        d = E.rebalance_dates(px.index)
+        ic = E.rank_ic(sc, px, d, 21, min_names=10)
+        assert ic.notna().any(), "rank IC produced nothing"
+        f = A.decile_monotonicity(px, sc, d, 21)
+        assert f is not None
+        print("OK")
+    """)
+    r = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
+    assert "OK" in r.stdout, f"failed without scipy:\n{r.stdout}\n{r.stderr[-1500:]}"

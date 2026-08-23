@@ -143,6 +143,18 @@ def run(prices: pd.DataFrame, score: pd.DataFrame, spec: BacktestSpec,
     )
 
 
+def spearman(a: pd.Series, b: pd.Series) -> float:
+    """Rank correlation without scipy.
+
+    `Series.corr(method="spearman")` delegates to scipy, which would put a
+    third dependency in a package whose whole pitch is that it has two. Pearson
+    on the ranks is the same number.
+    """
+    if len(a) < 3:
+        return float("nan")
+    return float(a.rank().corr(b.rank()))
+
+
 # ------------------------------------------------------------------ metrics
 def sharpe(r: pd.Series) -> float:
     s = r.std(ddof=1)
@@ -174,7 +186,7 @@ def rank_ic(score: pd.DataFrame, prices: pd.DataFrame, dates, horizon: int,
             s, f = s[m], f[m]
         df = pd.concat([s, f], axis=1).dropna()
         if len(df) >= min_names:
-            out[d] = df.iloc[:, 0].corr(df.iloc[:, 1], method="spearman")
+            out[d] = spearman(df.iloc[:, 0], df.iloc[:, 1])
     return pd.Series(out, dtype=float)
 
 

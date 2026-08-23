@@ -217,8 +217,8 @@ def decile_monotonicity(prices, score, dates, horizon: int, mask=None,
     if q.empty:
         return Finding("Decile monotonicity", False, "no periods scored", value=np.nan)
     means = q.mean()
-    rho = float(pd.Series(means.to_numpy()).corr(
-        pd.Series(np.arange(len(means))), method="spearman"))
+    rho = E.spearman(pd.Series(means.to_numpy()),
+                     pd.Series(np.arange(len(means), dtype=float)))
     spread = float(means.iloc[-1] - means.iloc[0])
     return Finding(
         name="Decile monotonicity", passed=(not require) or rho > 0.6,
