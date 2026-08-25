@@ -12,3 +12,4 @@ data/
 examples/report.html
 r_*.png
 _s.py
+examples/criteria.lock.json
